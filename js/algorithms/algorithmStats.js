@@ -6,6 +6,7 @@ export class AlgorithmStats {
         this.startTime = performance.now();
         this.endTime;
         this.runtime = 0; // in ms
+        $("#alg-runtime").text("running...");
     }
 
     updateStats() {

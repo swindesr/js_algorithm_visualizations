@@ -13,7 +13,7 @@ export class ShellSort {
         let n = arr.length;
 
         let h = 1;
-        while (h < n/3) h = 3*h + 1;
+        while (h < n/3) h = 3*h + 1; // initialize Knuth gap sequence
         
         while (h >= 1) {
             for (let i = h; i < n; i++) {

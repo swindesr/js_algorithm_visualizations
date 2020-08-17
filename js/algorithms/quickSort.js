@@ -18,10 +18,11 @@ export class QuickSort {
 
         let j = await this.partition(arr, lo, hi); // partition array around first entry
 
-        await this.qsort(arr, lo, j - 1),  // sort left of partition
-        await this.qsort(arr, j + 1, hi)   // sort right of partition
+        await this.qsort(arr, lo, j-1),  // sort left of partition
+        await this.qsort(arr, j+1, hi)   // sort right of partition
     }
 
+    /* find median of 3 elements in given array */
     median3(arr, i, j, k) {
         let res;
         if (arr[i] < arr[j]) {
@@ -58,35 +59,37 @@ export class QuickSort {
     async partition(arr, lo, hi) {
         let i = lo;
         let j = hi + 1;
-        let v = arr[lo];
+        let v = arr[lo]; // partition value
 
         this.states.fill('being sorted', lo, hi);
         this.states[lo] = 'partition';
 
         while (true) {
             
+            // increment left pointer until it finds value above partition
             while (arr[++i] < v) {
                 this.info.compares++;
                 if (i == hi) break;
             }
 
+            // increment right pointer until it finds value below partition
             while (v < arr[--j]) {
                 this.info.compares++;
                 if (j == lo) break;
             }
 
-            if (i >= j) {
-                this.states[i] = 'default';
-                this.states[j] = 'default';
-                break;
-            }
+            // pointers crossed; partition complete
+            if (i >= j) break;
 
+            // swap elements at pointers
             await exchange(arr, i, j, this);
         }
         
+        // place partition element into correct location
         await exchange(arr, lo, j, this);
         this.states.fill('default', lo, hi+1);
 
+        // partition final index
         return j;
     }
 

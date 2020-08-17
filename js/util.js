@@ -2,6 +2,7 @@ export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/* swap two array elements and update their states */
 export async function exchange(arr, i, j, algorithm) {
   algorithm.states[i] = 'being exchanged';
   algorithm.states[j] = 'being exchanged';

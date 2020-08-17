@@ -1,45 +1,51 @@
-import { shuffleArray } from './js/random.js';
-import { SortingProgram } from './js/algorithms/sortingProgram.js';
-import { QuickSort } from './js/algorithms/quickSort.js';
-import { BubbleSort } from './js/algorithms/bubbleSort.js';
-import { SelectionSort } from './js/algorithms/selectionSort.js';
-import { InsertionSort } from './js/algorithms/insertionSort.js';
-import { ShellSort } from './js/algorithms/shellSort.js';
-import { MergeSort } from './js/algorithms/mergeSort.js';
+import { shuffleArray } from './random.js';
+import { SortingProgram } from './algorithms/sortingProgram.js';
+import { QuickSort } from './algorithms/quickSort.js';
+import { BubbleSort } from './algorithms/bubbleSort.js';
+import { SelectionSort } from './algorithms/selectionSort.js';
+import { InsertionSort } from './algorithms/insertionSort.js';
+import { ShellSort } from './algorithms/shellSort.js';
+import { MergeSort } from './algorithms/mergeSort.js';
 
 /* sizing values */
 const WIDTH = $('#p5js').width();
 const HEIGHT = $('#p5js').height();
 const BAR_FLOOR = HEIGHT;
-let barWidth;
+
+let barWidth; // dependent on number of bars
 
 /* color values */
-const BG_COLOR = 0;
-const BAR_COLOR = 170;
+const BG_COLOR = [0,0,0];
+const DEFAULT_BAR_COLOR = [170,170,170];
+const BEING_SORTED_BAR_COLOR = [255,255,255];
+const BEING_EXCHANGED_BAR_COLOR = [75,255,75];
+const PARTITION_BAR_COLOR = [255,50,50]
 
 /* array to be sorted */
 let values = [];
 let states = [];
 
 /* sliders */
-let itemCountSlider = $('#itemCountSlider');
-let delaySlider = $('#delaySlider');
+const itemCountSlider = $('#itemCountSlider');
+const delaySlider = $('#delaySlider');
 
 /* algorithm managment */
 let sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));;
 let sortingAlgorithm = new QuickSort();
 
+/* called once when program starts to initialize p5js environment */
 window.setup = () => {
   let renderer = createCanvas(WIDTH, HEIGHT);
   renderer.parent('p5js');
 
   sortingAlgorithm.updateInfoFields();
-  setupSliders();
+  updateSliderInfoFields();
   setupArray();
   setBarWidth();
   toggleInputs(true);
 }
 
+/* called continuously to render visuals to parent container */
 window.draw = () => {
   background(BG_COLOR);
   for (let i = 0; i < values.length; i++) {
@@ -47,24 +53,27 @@ window.draw = () => {
   }
 }
 
+/* render single bar to correct screen location with correct color */
 function drawBarWithState(i) {
   if (states[i] == 'default') {
-    fill(BAR_COLOR);
+    fill(DEFAULT_BAR_COLOR);
   } else if (states[i] == 'partition') {
-    fill(255,50,50);
+    fill(PARTITION_BAR_COLOR);
   } else if (states[i] == 'being exchanged') {
-    fill(75,255,75);
+    fill(BEING_EXCHANGED_BAR_COLOR);
   } else if (states[i] == 'being sorted') {
-    fill(255);
+    fill(BEING_SORTED_BAR_COLOR);
   }
   rect(i * barWidth, BAR_FLOOR - values[i] - 2, barWidth, values[i] + 2);
 }
 
-function setupSliders() {
+/* render slider values to appropriate text fields */
+function updateSliderInfoFields() {
   $('#alg-items').text(itemCountSlider.attr('value'));
   $('#alg-delay').text(delaySlider.attr('value'));
 }
 
+/* initialize array to be sorted and shuffles values */
 function setupArray() {
   values = new Array(parseInt(itemCountSlider.attr('value')));
   for (let i = 0; i < values.length; i++) {
@@ -84,16 +93,17 @@ $("#run").click(async function() {
   toggleInputs(true);
 });
 
+/* sort values based on currently selected sorting algorithm */
+async function sort() {
+  sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
+  await sortingProgram.runSort(sortingAlgorithm);
+}
+
 $("#shuffle-items").click(function() {
   shuffleArray(values);
 });
 
-async function sort() {
-  sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
-  await sortingProgram.runSort(sortingAlgorithm);
-  console.log("Finished Sort.");
-}
-
+/* enable/disable input fields to prevent change during sorting */
 function toggleInputs(toggle) {
   if (toggle) {
     $('input').prop('disabled', false);
@@ -106,6 +116,7 @@ function toggleInputs(toggle) {
   }
 }
 
+/* update text/bars/values when item count slider used */
 $('#itemCountSlider').on('input', function() {
   $("#slide-itemCount").text(this.value);
   $("#alg-items").text(this.value);
@@ -114,12 +125,14 @@ $('#itemCountSlider').on('input', function() {
   setBarWidth();
 });
 
+/* update delay when delay slider used */
 $('#delaySlider').on('input', function() {
   $("#slide-delay").text(this.value);
   $("#alg-delay").text(this.value);
   this.setAttribute('value', this.value);
 });
 
+/* instantiate new sorting algorithm when chosen via dropdown */
 $('#alg-select').on('change', function() {
   switch(this.value) {
     case 'quick':

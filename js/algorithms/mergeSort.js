@@ -16,9 +16,9 @@ export class MergeSort {
     async msort(arr, aux, lo, hi) {
         if (hi <= lo) return;
         let mid = Math.floor(lo + (hi - lo) / 2);
-        await this.msort(arr, aux, lo, mid);
-        await this.msort(arr, aux, mid+1, hi);
-        if (!arr[mid] <= arr[mid+1]) await this.merge(arr, aux, lo, mid, hi);
+        await this.msort(arr, aux, lo, mid); // sort left half
+        await this.msort(arr, aux, mid+1, hi); // sort right half
+        if (!arr[mid] <= arr[mid+1]) await this.merge(arr, aux, lo, mid, hi); // check if sorted before attempting merge
         this.info.compares++;
     }
 
