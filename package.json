@@ -5,16 +5,25 @@
   "main": "index.html",
   "scripts": {
     "start": "npm run lite",
+    "dev": "parcel src/index.html",
+    "prod": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lite": "lite-server"
   },
   "author": "Sam Swindell",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.5.4"
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "lite-server": "^2.5.4",
+    "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
+    "@popperjs/core": "^2.4.4",
     "bootstrap": "^4.5.1",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "p5": "^1.1.9",
+    "popper.js": "^1.16.1"
   }
 }

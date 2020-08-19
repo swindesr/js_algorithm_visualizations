@@ -1,11 +1,21 @@
-import { shuffleArray } from './random.js';
-import { SortingProgram } from './algorithms/sortingProgram.js';
-import { QuickSort } from './algorithms/quickSort.js';
-import { BubbleSort } from './algorithms/bubbleSort.js';
-import { SelectionSort } from './algorithms/selectionSort.js';
-import { InsertionSort } from './algorithms/insertionSort.js';
-import { ShellSort } from './algorithms/shellSort.js';
-import { MergeSort } from './algorithms/mergeSort.js';
+/* script imports */
+import P5 from 'p5';
+import { shuffleArray } from './js/random.js';
+import { SortingProgram } from './js/algorithms/sortingProgram.js';
+import { QuickSort } from './js/algorithms/quickSort.js';
+import { BubbleSort } from './js/algorithms/bubbleSort.js';
+import { SelectionSort } from './js/algorithms/selectionSort.js';
+import { InsertionSort } from './js/algorithms/insertionSort.js';
+import { ShellSort } from './js/algorithms/shellSort.js';
+import { MergeSort } from './js/algorithms/mergeSort.js';
+
+/* style imports */
+import 'bootstrap/dist/css/bootstrap.css';
+import './styles/styles.css';
+
+/* jQuery */
+const jquery = require("jquery");
+window.$ = window.jQuery = jquery;
 
 /* sizing values */
 let width = $('#p5js').width();
@@ -75,7 +85,7 @@ const p5sketch = (p) => {
 }
 
 /* instance mode for p5js */
-new p5(p5sketch, 'p5js')
+new P5(p5sketch, 'p5js')
 
 /* render slider values to appropriate text fields */
 function updateSliderInfoFields() {
