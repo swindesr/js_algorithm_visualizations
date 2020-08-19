@@ -33,38 +33,43 @@ const delaySlider = $('#delaySlider');
 let sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
 let sortingAlgorithm = new QuickSort();
 
-/* called once when program starts to initialize p5js environment */
-window.setup = () => {
-  let renderer = createCanvas(WIDTH, HEIGHT);
-  renderer.parent('p5js');
+const p5sketch = (p) => {
+  /* called once when program starts to initialize p5js environment */
+  p.setup = () => {
+    let renderer = p.createCanvas(WIDTH, HEIGHT);
+    renderer.parent('p5js');
 
-  updateSliderInfoFields();
-  setupArray();
-  setBarWidth();
-  toggleInputs(true);
-}
+    updateSliderInfoFields();
+    setupArray();
+    setBarWidth();
+    toggleInputs(true);
+  }
 
-/* called continuously to render visuals to parent container */
-window.draw = () => {
-  background(BG_COLOR);
-  for (let i = 0; i < values.length; i++) {
-    drawBarWithState(i);
+  /* called continuously to render visuals to parent container */
+  p.draw = () => {
+    p.background(BG_COLOR);
+    for (let i = 0; i < values.length; i++) {
+      drawBarWithState(i);
+    }
+  }
+
+  /* render single bar to correct screen location with correct color */
+  function drawBarWithState(i) {
+    if (states[i] == 'default') {
+      p.fill(DEFAULT_BAR_COLOR);
+    } else if (states[i] == 'partition') {
+      p.fill(PARTITION_BAR_COLOR);
+    } else if (states[i] == 'being exchanged') {
+      p.fill(BEING_EXCHANGED_BAR_COLOR);
+    } else if (states[i] == 'being sorted') {
+      p.fill(BEING_SORTED_BAR_COLOR);
+    }
+    p.rect(i * barWidth, BAR_FLOOR - values[i] - 2, barWidth, values[i] + 2);
   }
 }
 
-/* render single bar to correct screen location with correct color */
-function drawBarWithState(i) {
-  if (states[i] == 'default') {
-    fill(DEFAULT_BAR_COLOR);
-  } else if (states[i] == 'partition') {
-    fill(PARTITION_BAR_COLOR);
-  } else if (states[i] == 'being exchanged') {
-    fill(BEING_EXCHANGED_BAR_COLOR);
-  } else if (states[i] == 'being sorted') {
-    fill(BEING_SORTED_BAR_COLOR);
-  }
-  rect(i * barWidth, BAR_FLOOR - values[i] - 2, barWidth, values[i] + 2);
-}
+/* instance mode for p5js */
+new p5(p5sketch, 'p5js')
 
 /* render slider values to appropriate text fields */
 function updateSliderInfoFields() {
@@ -139,8 +144,8 @@ $('#alg-select').on('change', function() {
       sortingAlgorithm = new QuickSort();
       break;
     case 'merge':
-        sortingAlgorithm = new MergeSort();
-        break;
+      sortingAlgorithm = new MergeSort();
+      break;
     case 'bubble':
       sortingAlgorithm = new BubbleSort();
       break;
@@ -155,4 +160,9 @@ $('#alg-select').on('change', function() {
       break;
     default: break;
   }
+});
+
+/* update position and of elements upon screen resize */
+$(window).resize(function() {
+  // TODO: figure out how to make the p5 elements resize nicely.
 });
