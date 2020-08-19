@@ -2,15 +2,28 @@ import { sleep } from '../util.js';
 import { AlgorithmStats } from './algorithmStats.js';
 
 export class MergeSort {
+    constructor() {
+        this.info = new AlgorithmStats(this.getInfo());
+    }
 
     async sort(arr, states, delay) {
         this.states = states;
-        this.info = new AlgorithmStats(delay);
-
+        this.delay = delay;
         let aux = new Array(arr.length);
         await this.msort(arr, aux, 0, arr.length-1);
-
         this.info.calculateRuntime();
+    }
+
+    getInfo() {
+        return {
+            name: 'Merge Sort',
+            about: "Merge sort is a classic example of divide and conquer. It works by dividing the array into a set of tiny subarrays and merging them together. This way, it avoids doing excess work by tackling small problems instead of larger problems. Many optimizations exist, but here I have only avoided unneeded merging by utilizing an extra comparison.",
+            best: '1/2 n log n',
+            avg: 'n log n',
+            worst: 'n log n',
+            inPlace: 'no',
+            stable: 'yes',
+        }
     }
 
     async msort(arr, aux, lo, hi) {
@@ -73,16 +86,5 @@ export class MergeSort {
         for (let k = lo; k <= hi; k++) {
             this.states[k] = 'default';
         }
-    }
-
-    updateInfoFields() {
-        $('#alg-name').text('Merge Sort');
-        $('#alg-about').text("Merge sort is a classic example of divide and conquer. It works by dividing the array into a set of tiny subarrays and merging them together. This way, it avoids doing excess work by tackling small problems instead of larger problems. Many optimizations exist, but here I have only avoided unneeded merging by utilizing an extra comparison.");
-        $('#alg-best').text('1/2 n log n');
-        $('#alg-avg').text('n log n');
-        $('#alg-worst').text('n log n');
-        $('#alg-place').text('no');
-        $('#alg-stable').text('yes');
-    }
-
+    }   
 }

@@ -1,7 +1,7 @@
 {
-  "name": "personal_site",
+  "name": "js_algorithm_visualizations",
   "version": "1.0.0",
-  "description": "The personal site of Sam Swindell",
+  "description": "An interactive visualization of common sorting algorithms.",
   "main": "index.html",
   "scripts": {
     "start": "npm run lite",

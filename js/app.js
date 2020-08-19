@@ -30,7 +30,7 @@ const itemCountSlider = $('#itemCountSlider');
 const delaySlider = $('#delaySlider');
 
 /* algorithm managment */
-let sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));;
+let sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
 let sortingAlgorithm = new QuickSort();
 
 /* called once when program starts to initialize p5js environment */
@@ -38,7 +38,6 @@ window.setup = () => {
   let renderer = createCanvas(WIDTH, HEIGHT);
   renderer.parent('p5js');
 
-  sortingAlgorithm.updateInfoFields();
   updateSliderInfoFields();
   setupArray();
   setBarWidth();
@@ -96,6 +95,7 @@ $("#run").click(async function() {
 /* sort values based on currently selected sorting algorithm */
 async function sort() {
   sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
+  $("#alg-runtime").text("running...");
   await sortingProgram.runSort(sortingAlgorithm);
 }
 
@@ -155,5 +155,4 @@ $('#alg-select').on('change', function() {
       break;
     default: break;
   }
-  sortingAlgorithm.updateInfoFields();
 });

@@ -2,11 +2,27 @@ import { exchange } from '../util.js';
 import { AlgorithmStats } from './algorithmStats.js';
 
 export class BubbleSort {
+    constructor() {
+        this.info = new AlgorithmStats(this.getInfo());
+    }
+
     async sort(arr, states, delay) {
         this.states = states;
-        this.info = new AlgorithmStats(delay);
+        this.delay = delay;
         await this.bsort(arr);
         this.info.calculateRuntime();
+    }
+
+    getInfo() {
+        return {
+            name: 'Bubble Sort',
+            about: "Often used as a teaching tool, bubble sort is very slow. It sorts a given array by comparing neighboring elements and 'bubbling' the larger element up towards the final position. Even with some optimizations, this still lacks efficiency and is not often used in practice.",
+            best: 'n',
+            avg: '1/2 n^2',
+            worst: '1/2 n^2',
+            inPlace: 'yes',
+            stable: 'yes',
+        }
     }
 
     async bsort(arr) {
@@ -23,15 +39,5 @@ export class BubbleSort {
             this.states[sortedAfterIndex] = 'default';
             n = sortedAfterIndex;
         }
-    }
-
-    updateInfoFields() {
-        $('#alg-name').text('Bubble Sort');
-        $('#alg-about').text("Often used as a teaching tool, bubble sort is very slow. It sorts a given array by comparing neighboring elements and 'bubbling' the larger element up towards the final position. Even with some optimizations, this still lacks efficiency and is not often used in practice.");
-        $('#alg-best').text('n');
-        $('#alg-avg').text('1/2 n^2');
-        $('#alg-worst').text('1/2 n^2');
-        $('#alg-place').text('yes');
-        $('#alg-stable').text('yes');
     }
 }

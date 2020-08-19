@@ -2,11 +2,27 @@ import { exchange } from '../util.js';
 import { AlgorithmStats } from './algorithmStats.js';
 
 export class QuickSort {
+    constructor() {
+        this.info = new AlgorithmStats(this.getInfo());
+    }
+
     async sort(arr, states, delay) {
+        this.delay = delay;
         this.states = states;
-        this.info = new AlgorithmStats(delay);
         await this.qsort(arr, 0, arr.length - 1);
         this.info.calculateRuntime();
+    }
+
+    getInfo() {
+        return {
+            name: 'Quick Sort',
+            about: "By partitioning around a 'pivot' element, quick sort efficiently places items in their correct location. It almost guarantees fast performance by introducing randomness. In this implementation, the partition is chosen as a median of 3 values to improve performance further. For even greater optimization, insertion sort can be applied when dealing with small subproblems.",
+            best: 'n log n',
+            avg:'2 n log n',
+            worst: '1/2 n^2',
+            inPlace: 'yes',
+            stable: 'no',
+        }
     }
 
     async qsort(arr, lo, hi) {
@@ -91,15 +107,5 @@ export class QuickSort {
 
         // partition final index
         return j;
-    }
-
-    updateInfoFields() {
-        $('#alg-name').text('Quick Sort');
-        $('#alg-about').text("By partitioning around a 'pivot' element, quick sort efficiently places items in their correct location. It almost guarantees fast performance by introducing randomness. In this implementation, the partition is chosen as a median of 3 values to improve performance further. For even greater optimization, insertion sort can be applied when dealing with small subproblems.");
-        $('#alg-best').text('n log n');
-        $('#alg-avg').text('2 n ln n');
-        $('#alg-worst').text('1/2 n^2');
-        $('#alg-place').text('yes');
-        $('#alg-stable').text('no');
     }
 }
