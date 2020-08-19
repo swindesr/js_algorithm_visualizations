@@ -199,6 +199,10 @@ button:focus {
   outline-offset: 1px;
 }
 
+button:disabled {
+  background-color: #808080;
+}
+
 /********************
  * DROPDOWN STYLING *
  ********************/

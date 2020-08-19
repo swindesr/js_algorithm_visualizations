@@ -3,8 +3,6 @@ export class AlgorithmStats {
         this.updateInfoFields(algInfo);
         this.compares = 0;
         this.swaps = 0;
-        this.startTime = performance.now();
-        this.endTime;
         this.runtime = 0; // in ms
     }
 
@@ -21,6 +19,13 @@ export class AlgorithmStats {
     updateStats() {
         $("#alg-compares").text(this.compares);
         $("#alg-swaps").text(this.swaps);
+    }
+
+    refresh() {
+        this.compares = 0;
+        this.swaps = 0;
+        this.startTime = performance.now();
+        this.runTime = 0;
     }
 
     calculateRuntime() {

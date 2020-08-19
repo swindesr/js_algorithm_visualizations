@@ -7,6 +7,7 @@ export class BubbleSort {
     }
 
     async sort(arr, states, delay) {
+        this.info.refresh();
         this.states = states;
         this.delay = delay;
         await this.bsort(arr);

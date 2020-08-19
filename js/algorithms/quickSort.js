@@ -7,6 +7,7 @@ export class QuickSort {
     }
 
     async sort(arr, states, delay) {
+        this.info.refresh();
         this.delay = delay;
         this.states = states;
         await this.qsort(arr, 0, arr.length - 1);

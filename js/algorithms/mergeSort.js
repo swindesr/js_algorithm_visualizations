@@ -7,6 +7,7 @@ export class MergeSort {
     }
 
     async sort(arr, states, delay) {
+        this.info.refresh();
         this.states = states;
         this.delay = delay;
         let aux = new Array(arr.length);

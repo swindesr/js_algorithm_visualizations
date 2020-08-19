@@ -7,6 +7,7 @@ export class ShellSort {
     }
 
     async sort(arr, states, delay) {
+        this.info.refresh();
         this.states = states;
         this.delay = delay;
         await this.ssort(arr);
