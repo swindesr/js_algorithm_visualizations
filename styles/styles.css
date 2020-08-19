@@ -6,9 +6,9 @@ body {
 }
 
 .wrapper {
-  display: flex;
+  /* display: flex;
   flex-flow: column wrap;
-  align-items: stretch;
+  align-items: stretch; */
 
   width: 100vw;
   height: 100vh;
@@ -24,17 +24,16 @@ body {
 }
 
 .header {
-  flex: 1 0 10%;
   align-items: center;
   border-bottom: 1px solid white;
+  height: 50px;
 }
 
 .content {
-  flex: 1 0 55%;
+  height: 425px;
 }
 
 .footer {
-  flex: 1 0 25%;
   padding-top: 20px;
 }
 

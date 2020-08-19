@@ -8,9 +8,8 @@ import { ShellSort } from './algorithms/shellSort.js';
 import { MergeSort } from './algorithms/mergeSort.js';
 
 /* sizing values */
-const WIDTH = $('#p5js').width();
-const HEIGHT = $('#p5js').height();
-const BAR_FLOOR = HEIGHT;
+let width = $('#p5js').width();
+let height = $('#p5js').height();
 
 let barWidth; // dependent on number of bars
 
@@ -36,7 +35,7 @@ let sortingAlgorithm = new QuickSort();
 const p5sketch = (p) => {
   /* called once when program starts to initialize p5js environment */
   p.setup = () => {
-    let renderer = p.createCanvas(WIDTH, HEIGHT);
+    let renderer = p.createCanvas(width, height);
     renderer.parent('p5js');
 
     updateSliderInfoFields();
@@ -54,7 +53,7 @@ const p5sketch = (p) => {
   }
 
   /* render single bar to correct screen location with correct color */
-  function drawBarWithState(i) {
+  const drawBarWithState = (i) => {
     if (states[i] == 'default') {
       p.fill(DEFAULT_BAR_COLOR);
     } else if (states[i] == 'partition') {
@@ -64,7 +63,14 @@ const p5sketch = (p) => {
     } else if (states[i] == 'being sorted') {
       p.fill(BEING_SORTED_BAR_COLOR);
     }
-    p.rect(i * barWidth, BAR_FLOOR - values[i] - 2, barWidth, values[i] + 2);
+    p.rect(i * barWidth, p.height - values[i] - 2, barWidth, values[i] + 2);
+  }
+
+  p.windowResized = () => {
+    width = $('#p5js').width();
+    height = $('#p5js').height();
+    p.resizeCanvas(width, height);
+    setBarWidth();
   }
 }
 
@@ -88,7 +94,7 @@ function setupArray() {
 }
 
 function setBarWidth() {
-  barWidth = WIDTH / itemCountSlider.attr('value');
+  barWidth = width / itemCountSlider.attr('value');
 }
 
 $("#run").click(async function() {
@@ -160,9 +166,4 @@ $('#alg-select').on('change', function() {
       break;
     default: break;
   }
-});
-
-/* update position and of elements upon screen resize */
-$(window).resize(function() {
-  // TODO: figure out how to make the p5 elements resize nicely.
 });
