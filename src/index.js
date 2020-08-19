@@ -140,7 +140,6 @@ function toggleInputs(toggle) {
 /* update text/bars/values when item count slider used */
 $('#itemCountSlider').on('input', function() {
   $("#slide-itemCount").text(this.value);
-  $("#alg-items").text(this.value);
   this.setAttribute('value', this.value);
   setupArray();
   setBarWidth();
@@ -149,7 +148,6 @@ $('#itemCountSlider').on('input', function() {
 /* update delay when delay slider used */
 $('#delaySlider').on('input', function() {
   $("#slide-delay").text(this.value);
-  $("#alg-delay").text(this.value);
   this.setAttribute('value', this.value);
 });
 

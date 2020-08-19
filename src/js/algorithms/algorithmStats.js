@@ -1,9 +1,6 @@
 export class AlgorithmStats {
     constructor(algInfo) {
         this.updateInfoFields(algInfo);
-        this.compares = 0;
-        this.swaps = 0;
-        this.runtime = 0; // in ms
     }
 
     updateInfoFields(algInfo) {
@@ -25,7 +22,6 @@ export class AlgorithmStats {
         this.compares = 0;
         this.swaps = 0;
         this.startTime = performance.now();
-        this.runTime = 0;
     }
 
     calculateRuntime() {
