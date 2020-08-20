@@ -6,11 +6,11 @@ export class InsertionSort {
         this.info = new AlgorithmStats(this.getInfo());
     }
 
-    async sort(arr, states, delay) {
+    async sort(toSort) {
         this.info.refresh();
-        this.states = states;
-        this.delay = delay;
-        await this.isort(arr);
+        this.states = toSort.states;
+        this.delay = toSort.delay;
+        await this.isort(toSort.arr);
         this.info.calculateRuntime();
     }
 

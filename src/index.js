@@ -115,7 +115,11 @@ $("#run").click(async function() {
 
 /* sort values based on currently selected sorting algorithm */
 async function sort() {
-  sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
+  sortingProgram = new SortingProgram({
+    arr: values, 
+    states: states, 
+    delay: delaySlider.attr('value')
+  });
   $("#alg-runtime").text("running...");
   await sortingProgram.runSort(sortingAlgorithm);
 }

@@ -6,12 +6,12 @@ export class MergeSort {
         this.info = new AlgorithmStats(this.getInfo());
     }
 
-    async sort(arr, states, delay) {
+    async sort(toSort) {
         this.info.refresh();
-        this.states = states;
-        this.delay = delay;
-        let aux = new Array(arr.length);
-        await this.msort(arr, aux, 0, arr.length-1);
+        this.states = toSort.states;
+        this.delay = toSort.delay;
+        let aux = new Array(toSort.arr.length);
+        await this.msort(toSort.arr, aux, 0, toSort.arr.length-1);
         this.info.calculateRuntime();
     }
 

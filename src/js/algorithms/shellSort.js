@@ -6,11 +6,11 @@ export class ShellSort {
         this.info = new AlgorithmStats(this.getInfo());
     }
 
-    async sort(arr, states, delay) {
+    async sort(toSort) {
         this.info.refresh();
-        this.states = states;
-        this.delay = delay;
-        await this.ssort(arr);
+        this.states = toSort.states;
+        this.delay = toSort.delay;
+        await this.ssort(toSort.arr);
         this.info.calculateRuntime();
     }
 

@@ -6,11 +6,11 @@ export class QuickSort {
         this.info = new AlgorithmStats(this.getInfo());
     }
 
-    async sort(arr, states, delay) {
+    async sort(toSort) {
         this.info.refresh();
-        this.delay = delay;
-        this.states = states;
-        await this.qsort(arr, 0, arr.length - 1);
+        this.delay = toSort.delay;
+        this.states = toSort.states;
+        await this.qsort(toSort.arr, 0, toSort.arr.length - 1);
         this.info.calculateRuntime();
     }
 

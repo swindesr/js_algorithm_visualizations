@@ -6,11 +6,11 @@ export class BubbleSort {
         this.info = new AlgorithmStats(this.getInfo());
     }
 
-    async sort(arr, states, delay) {
+    async sort(toSort) {
         this.info.refresh();
-        this.states = states;
-        this.delay = delay;
-        await this.bsort(arr);
+        this.states = toSort.states;
+        this.delay = toSort.delay;
+        await this.bsort(toSort.arr);
         this.info.calculateRuntime();
     }
 
