@@ -8,8 +8,8 @@ export class QuickSort {
 
     async sort(toSort) {
         this.info.refresh();
-        this.delay = toSort.delay;
         this.states = toSort.states;
+        this.delay = toSort.delay;
         await this.qsort(toSort.arr, 0, toSort.arr.length - 1);
         this.info.calculateRuntime();
     }

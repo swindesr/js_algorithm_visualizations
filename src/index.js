@@ -1,13 +1,8 @@
 /* script imports */
 import P5 from 'p5';
 import { shuffleArray } from './js/random.js';
-import { SortingProgram } from './js/algorithms/sortingProgram.js';
-import { QuickSort } from './js/algorithms/quickSort.js';
-import { BubbleSort } from './js/algorithms/bubbleSort.js';
-import { SelectionSort } from './js/algorithms/selectionSort.js';
-import { InsertionSort } from './js/algorithms/insertionSort.js';
-import { ShellSort } from './js/algorithms/shellSort.js';
-import { MergeSort } from './js/algorithms/mergeSort.js';
+import { toggleInputs } from './js/util.js';
+import { SortingProgram, QuickSort, BubbleSort, SelectionSort, InsertionSort, ShellSort, MergeSort } from './js/algorithms/exports.js';
 
 /* style imports */
 import 'bootstrap/dist/css/bootstrap.css';
@@ -20,8 +15,7 @@ window.$ = window.jQuery = jquery;
 /* sizing values */
 let width = $('#p5js').width();
 let height = $('#p5js').height();
-
-let barWidth; // dependent on number of bars
+let barWidth; // dependent on number of bars & screen width
 
 /* color values */
 const BG_COLOR = [0,0,0];
@@ -63,7 +57,7 @@ const p5sketch = (p) => {
   }
 
   /* render single bar to correct screen location with correct color */
-  const drawBarWithState = (i) => {
+  function drawBarWithState(i) {
     if (states[i] == 'default') {
       p.fill(DEFAULT_BAR_COLOR);
     } else if (states[i] == 'partition') {
@@ -127,19 +121,6 @@ async function sort() {
 $("#shuffle-items").click(function() {
   shuffleArray(values);
 });
-
-/* enable/disable input fields to prevent change during sorting */
-function toggleInputs(toggle) {
-  if (toggle) {
-    $('input').prop('disabled', false);
-    $('button').prop('disabled', false);
-    $('select').prop('disabled', false);
-  } else {
-    $('input').prop('disabled', true);
-    $('button').prop('disabled', true);
-    $('select').prop('disabled', true);
-  }
-}
 
 /* update text/bars/values when item count slider used */
 $('#itemCountSlider').on('input', function() {
