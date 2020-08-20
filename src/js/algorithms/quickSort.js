@@ -79,7 +79,7 @@ export class QuickSort {
         let v = arr[lo]; // partition value
 
         this.states.fill('being sorted', lo, hi);
-        this.states[lo] = 'partition';
+        this.states[lo] = 'pivot';
 
         while (true) {
             

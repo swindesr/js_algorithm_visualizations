@@ -22,7 +22,7 @@ const BG_COLOR = [0,0,0];
 const DEFAULT_BAR_COLOR = [170,170,170];
 const BEING_SORTED_BAR_COLOR = [255,255,255];
 const BEING_EXCHANGED_BAR_COLOR = [75,255,75];
-const PARTITION_BAR_COLOR = [255,50,50]
+const PIVOT_BAR_COLOR = [255,50,50]
 
 /* array to be sorted */
 let values = [];
@@ -60,8 +60,8 @@ const p5sketch = (p) => {
   function drawBarWithState(i) {
     if (states[i] == 'default') {
       p.fill(DEFAULT_BAR_COLOR);
-    } else if (states[i] == 'partition') {
-      p.fill(PARTITION_BAR_COLOR);
+    } else if (states[i] == 'pivot') {
+      p.fill(PIVOT_BAR_COLOR);
     } else if (states[i] == 'being exchanged') {
       p.fill(BEING_EXCHANGED_BAR_COLOR);
     } else if (states[i] == 'being sorted') {
