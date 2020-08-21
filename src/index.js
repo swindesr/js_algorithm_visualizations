@@ -3,7 +3,7 @@ const jquery = require("jquery");
 window.$ = window.jQuery = jquery;
 
 /* script imports */
-import P5 from 'p5';
+import * as P5 from 'p5';
 import { toggleInputs, generateDefaultStateArray } from './js/util.js';
 import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
