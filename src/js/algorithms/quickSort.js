@@ -1,20 +1,19 @@
 import { exchange } from '../util.js';
 import { AlgorithmStats } from './algorithmStats.js';
+import { SortingAlgorithm } from './sortingAlgorithm.js';
 
-export class QuickSort {
+export class QuickSort extends SortingAlgorithm {
     constructor() {
-        this.info = new AlgorithmStats(this.getInfo());
+        super();
     }
 
     async sort(toSort) {
-        this.info.refresh();
-        this.states = toSort.states;
-        this.delay = toSort.delay;
+        super.sort(toSort);
         await this.qsort(toSort.arr, 0, toSort.arr.length - 1);
         this.info.calculateRuntime();
     }
 
-    getInfo() {
+    getDescriptions() {
         return {
             name: 'Quick Sort',
             about: "By partitioning around a 'pivot' element, quick sort efficiently places items in their correct location. It almost guarantees fast performance by introducing randomness. In this implementation, the partition is chosen as a median of 3 values to improve performance further. For even greater optimization, insertion sort can be applied when dealing with small subproblems.",

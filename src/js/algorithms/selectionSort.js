@@ -1,20 +1,18 @@
 import { exchange } from '../util.js';
-import { AlgorithmStats } from './algorithmStats.js';
+import { SortingAlgorithm } from './sortingAlgorithm.js';
 
-export class SelectionSort {
+export class SelectionSort extends SortingAlgorithm{
     constructor() {
-        this.info = new AlgorithmStats(this.getInfo());
+        super();
     }
 
     async sort(toSort) {
-        this.info.refresh();
-        this.states = toSort.states;
-        this.delay = toSort.delay;
+        super.sort(toSort);
         await this.ssort(toSort.arr);
         this.info.calculateRuntime();
     }
 
-    getInfo() {
+    getDescriptions() {
         return {
             name: 'Selection Sort',
             about: "One of the simplest sorting methods, selection sort scans the array for the smallest item and places it in position one. It then moves up one position and repeats itself. While not impressively efficient, selection sort guarantees one swap per array entry, so it can be useful in cases where swapping is expensive.",

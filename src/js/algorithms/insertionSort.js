@@ -1,20 +1,18 @@
 import { exchange } from '../util.js';
-import { AlgorithmStats } from './algorithmStats.js';
+import { SortingAlgorithm } from './sortingAlgorithm.js';
 
-export class InsertionSort {
+export class InsertionSort extends SortingAlgorithm {
     constructor() {
-        this.info = new AlgorithmStats(this.getInfo());
+        super();
     }
 
     async sort(toSort) {
-        this.info.refresh();
-        this.states = toSort.states;
-        this.delay = toSort.delay;
+        super.sort(toSort);
         await this.isort(toSort.arr);
         this.info.calculateRuntime();
     }
 
-    getInfo() {
+    getDescriptions() {
         return {
             name: 'Insertion Sort',
             about: "Insertion sort places items into their correct position relative to any items already processed. It is exceptionally good at sorting arrays with only a few items out of place. As such, it is often used to optimize small subproblems in other sorting methods.",

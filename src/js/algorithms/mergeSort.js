@@ -1,21 +1,19 @@
 import { sleep } from '../util.js';
-import { AlgorithmStats } from './algorithmStats.js';
+import { SortingAlgorithm } from './sortingAlgorithm.js';
 
-export class MergeSort {
+export class MergeSort extends SortingAlgorithm {
     constructor() {
-        this.info = new AlgorithmStats(this.getInfo());
+        super();
     }
 
     async sort(toSort) {
-        this.info.refresh();
-        this.states = toSort.states;
-        this.delay = toSort.delay;
+        super.sort(toSort);
         let aux = new Array(toSort.arr.length);
         await this.msort(toSort.arr, aux, 0, toSort.arr.length-1);
         this.info.calculateRuntime();
     }
 
-    getInfo() {
+    getDescriptions() {
         return {
             name: 'Merge Sort',
             about: "Merge sort is a classic example of divide and conquer. It works by dividing the array into a set of tiny subarrays and merging them together. This way, it avoids doing excess work by tackling small problems instead of larger problems. Many optimizations exist, but here I have only avoided unneeded merging by utilizing an extra comparison.",

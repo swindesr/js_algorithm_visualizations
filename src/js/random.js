@@ -1,5 +1,5 @@
 /* randomize elements in array using Knuth Shuffle */
-export const shuffleArray = (arr) => {
+export function shuffleArray(arr) {
     if (arr == null) throw 'randomize() given null input!';
     if (!Array.isArray(arr)) throw 'randomize() given non-array input!';
     

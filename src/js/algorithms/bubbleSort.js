@@ -1,20 +1,18 @@
 import { exchange } from '../util.js';
-import { AlgorithmStats } from './algorithmStats.js';
+import { SortingAlgorithm } from './sortingAlgorithm.js';
 
-export class BubbleSort {
+export class BubbleSort extends SortingAlgorithm {
     constructor() {
-        this.info = new AlgorithmStats(this.getInfo());
+        super();
     }
 
     async sort(toSort) {
-        this.info.refresh();
-        this.states = toSort.states;
-        this.delay = toSort.delay;
+        super.sort(toSort);
         await this.bsort(toSort.arr);
         this.info.calculateRuntime();
     }
 
-    getInfo() {
+    getDescriptions() {
         return {
             name: 'Bubble Sort',
             about: "Often used as a teaching tool, bubble sort is very slow. It sorts a given array by comparing neighboring elements and 'bubbling' the larger element up towards the final position. Even with some optimizations, this still lacks efficiency and is not often used in practice.",
