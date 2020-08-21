@@ -1,3 +1,9 @@
+import { shuffleArray } from './random.js';
+
+/* jQuery */
+const jquery = require("jquery");
+window.$ = window.jQuery = jquery;
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -31,4 +37,16 @@ function toggleInputs(toggle) {
   }
 }
 
-export { sleep, exchange, toggleInputs };
+/* initialize array to be sorted and shuffles values */
+function generateDefaultStateArray(size) {
+  let values = new Array(size);
+  let states = new Array(size);
+  for (let i = 0; i < values.length; i++) {
+    values[i] = i;
+    states[i] = 'default';
+  }
+  shuffleArray(values);
+  return [values, states];
+}
+
+export { sleep, exchange, toggleInputs, generateDefaultStateArray };

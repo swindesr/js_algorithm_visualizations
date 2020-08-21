@@ -2,15 +2,10 @@
 <html lang="en">
 
 <head>
-
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-
-<!-- p5js scripts-->
-<!-- <script src="p5/p5.js"></script> -->
-
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 </head>
 
 <body>
@@ -29,12 +24,28 @@
                 </li>
                 <li>
                     <label for="itemCountSlider">Item Count:</label>
-                    <input type="range" min="10" max="400" value="100" step="5" class="slider" id="itemCountSlider">
+                    <input 
+                        type="range" 
+                        min="10" 
+                        max="400" 
+                        value="100" 
+                        step="5" 
+                        class="slider" 
+                        id="itemCountSlider"
+                    />
                     <span id="slide-itemCount">100</span>
                 </li>
                 <li>
                     <label for="delaySlider">Delay:</label>
-                    <input type="range" min="0" max="500" value="10" step="10" class="slider" id="delaySlider">
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="500" 
+                        value="10" 
+                        step="10" 
+                        class="slider" 
+                        id="delaySlider"
+                    />
                     <span id="slide-delay">10</span>ms
                 </li>
                 <li>
@@ -83,7 +94,7 @@
     </div>
 </body>
 
-<!-- p5js modules -->
+<!-- load script root file -->
 <script type="module" src="./index.js"></script>
 
 </html>

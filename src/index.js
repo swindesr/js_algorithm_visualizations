@@ -1,16 +1,18 @@
+/* define jQuery here to give all imported scripts access */
+const jquery = require("jquery");
+window.$ = window.jQuery = jquery;
+
 /* script imports */
 import P5 from 'p5';
-import { shuffleArray } from './js/random.js';
-import { toggleInputs } from './js/util.js';
-import { SortingProgram, QuickSort, BubbleSort, SelectionSort, InsertionSort, ShellSort, MergeSort } from './js/algorithms/exports.js';
+import { toggleInputs, generateDefaultStateArray } from './js/util.js';
+import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
+import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
+import './js/inputs/buttons.js';
+import './js/inputs/selects.js';
 
 /* style imports */
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/styles.css';
-
-/* jQuery */
-const jquery = require("jquery");
-window.$ = window.jQuery = jquery;
 
 /* sizing values */
 let width = $('#p5js').width();
@@ -28,13 +30,9 @@ const PIVOT_BAR_COLOR = [255,50,50]
 let values = [];
 let states = [];
 
-/* sliders */
-const itemCountSlider = $('#itemCountSlider');
-const delaySlider = $('#delaySlider');
-
 /* algorithm managment */
-let sortingProgram = new SortingProgram(values, states, delaySlider.attr('value'));
-let sortingAlgorithm = new QuickSort();
+let sortingProgram = new SortingProgram(values, states, getDelay());
+let sortingStrategy = new QuickSort();
 
 const p5sketch = (p) => {
   /* called once when program starts to initialize p5js environment */
@@ -43,7 +41,7 @@ const p5sketch = (p) => {
     renderer.parent('p5js');
 
     updateSliderInfoFields();
-    setupArray();
+    updateValuesAndStates();
     setBarWidth();
     toggleInputs(true);
   }
@@ -81,82 +79,31 @@ const p5sketch = (p) => {
 /* instance mode for p5js */
 new P5(p5sketch, 'p5js')
 
-/* render slider values to appropriate text fields */
-function updateSliderInfoFields() {
-  $('#alg-items').text(itemCountSlider.attr('value'));
-  $('#alg-delay').text(delaySlider.attr('value'));
+function updateValuesAndStates() {
+  [values, states] = generateDefaultStateArray(getItemCount());
 }
 
-/* initialize array to be sorted and shuffles values */
-function setupArray() {
-  values = new Array(parseInt(itemCountSlider.attr('value')));
-  for (let i = 0; i < values.length; i++) {
-    values[i] = i;
-    states[i] = 'default';
-  }
-  shuffleArray(values);
+function getValues() {
+  return values;
 }
 
 function setBarWidth() {
-  barWidth = width / itemCountSlider.attr('value');
+  barWidth = width / getItemCount();
 }
 
-$("#run").click(async function() {
-  toggleInputs(false);
-  await sort();
-  toggleInputs(true);
-});
+function setSortingStrategy(strategy) {
+  sortingStrategy = strategy;
+}
 
 /* sort values based on currently selected sorting algorithm */
 async function sort() {
   sortingProgram = new SortingProgram({
-    arr: values, 
-    states: states, 
-    delay: delaySlider.attr('value')
+      arr: values,
+      states: states,
+      delay: getDelay()
   });
   $("#alg-runtime").text("running...");
-  await sortingProgram.runSort(sortingAlgorithm);
+  await sortingProgram.runSort(sortingStrategy);
 }
 
-$("#shuffle-items").click(function() {
-  shuffleArray(values);
-});
-
-/* update text/bars/values when item count slider used */
-$('#itemCountSlider').on('input', function() {
-  $("#slide-itemCount").text(this.value);
-  this.setAttribute('value', this.value);
-  setupArray();
-  setBarWidth();
-});
-
-/* update delay when delay slider used */
-$('#delaySlider').on('input', function() {
-  $("#slide-delay").text(this.value);
-  this.setAttribute('value', this.value);
-});
-
-/* instantiate new sorting algorithm when chosen via dropdown */
-$('#alg-select').on('change', function() {
-  switch(this.value) {
-    case 'quick':
-      sortingAlgorithm = new QuickSort();
-      break;
-    case 'merge':
-      sortingAlgorithm = new MergeSort();
-      break;
-    case 'bubble':
-      sortingAlgorithm = new BubbleSort();
-      break;
-    case 'selection':
-      sortingAlgorithm = new SelectionSort();
-      break;
-    case 'insertion':
-      sortingAlgorithm = new InsertionSort();
-      break;
-    case 'shell':
-      sortingAlgorithm = new ShellSort();
-      break;
-    default: break;
-  }
-});
+export { getValues, setBarWidth, setSortingStrategy, sort, updateValuesAndStates };

@@ -1,3 +1,5 @@
+import { updateSliderInfoFields } from '../inputs/sliders.js';
+
 export class AlgorithmStats {
     constructor(algInfo) {
         this.updateInfoFields(algInfo);
@@ -14,6 +16,7 @@ export class AlgorithmStats {
       }
 
     updateStats() {
+        updateSliderInfoFields();
         $("#alg-compares").text(this.compares);
         $("#alg-swaps").text(this.swaps);
     }
