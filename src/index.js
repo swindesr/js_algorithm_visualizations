@@ -3,7 +3,7 @@ const jquery = require("jquery");
 window.$ = window.jQuery = jquery;
 
 /* script imports */
-import * as P5 from 'p5';
+//import P5 from 'p5';
 import { toggleInputs, generateDefaultStateArray } from './js/util.js';
 import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
@@ -34,10 +34,10 @@ let states = [];
 let sortingProgram = new SortingProgram(values, states, getDelay());
 let sortingStrategy = new QuickSort();
 
-const p5sketch = (p) => {
+// const p5sketch = (p) => {
   /* called once when program starts to initialize p5js environment */
-  p.setup = () => {
-    let renderer = p.createCanvas(width, height);
+  window.setup = function () {
+    let renderer = createCanvas(width, height);
     renderer.parent('p5js');
 
     updateSliderInfoFields();
@@ -47,8 +47,8 @@ const p5sketch = (p) => {
   }
 
   /* called continuously to render visuals to parent container */
-  p.draw = () => {
-    p.background(BG_COLOR);
+  window.draw = function () {
+    background(BG_COLOR);
     for (let i = 0; i < values.length; i++) {
       drawBarWithState(i);
     }
@@ -57,27 +57,27 @@ const p5sketch = (p) => {
   /* render single bar to correct screen location with correct color */
   function drawBarWithState(i) {
     if (states[i] == 'default') {
-      p.fill(DEFAULT_BAR_COLOR);
+      fill(DEFAULT_BAR_COLOR);
     } else if (states[i] == 'pivot') {
-      p.fill(PIVOT_BAR_COLOR);
+      fill(PIVOT_BAR_COLOR);
     } else if (states[i] == 'being exchanged') {
-      p.fill(BEING_EXCHANGED_BAR_COLOR);
+      fill(BEING_EXCHANGED_BAR_COLOR);
     } else if (states[i] == 'being sorted') {
-      p.fill(BEING_SORTED_BAR_COLOR);
+      fill(BEING_SORTED_BAR_COLOR);
     }
-    p.rect(i * barWidth, p.height - values[i] - 2, barWidth, values[i] + 2);
+    rect(i * barWidth, height - values[i] - 2, barWidth, values[i] + 2);
   }
 
-  p.windowResized = () => {
+  window. windowResized = function () {
     width = $('#p5js').width();
     height = $('#p5js').height();
-    p.resizeCanvas(width, height);
+    resizeCanvas(width, height);
     setBarWidth();
   }
-}
+// }
 
 /* instance mode for p5js */
-new P5(p5sketch, 'p5js')
+// new P5(p5sketch, 'p5js')
 
 function updateValuesAndStates() {
   [values, states] = generateDefaultStateArray(getItemCount());
