@@ -1,6 +1,6 @@
 import { toggleInputs } from '../util.js';
 import { shuffleArray } from '../random.js';
-import { sort, getValues } from '../../index.js';
+import { sort, values } from '../../index.js';
 
 $("#run").click(async function () {
     toggleInputs(false);
@@ -10,5 +10,5 @@ $("#run").click(async function () {
 
 /* shuffles items in values array */
 $("#shuffle-items").click(function () {
-    shuffleArray(getValues());
+    shuffleArray(values);
 });

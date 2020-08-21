@@ -83,10 +83,6 @@ function updateValuesAndStates() {
   [values, states] = generateDefaultStateArray(getItemCount());
 }
 
-function getValues() {
-  return values;
-}
-
 function setBarWidth() {
   barWidth = width / getItemCount();
 }
@@ -106,4 +102,4 @@ async function sort() {
   await sortingProgram.runSort(sortingStrategy);
 }
 
-export { getValues, setBarWidth, setSortingStrategy, sort, updateValuesAndStates };
+export { values, setBarWidth, setSortingStrategy, sort, updateValuesAndStates };

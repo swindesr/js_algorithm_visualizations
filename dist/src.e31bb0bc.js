@@ -46228,7 +46228,7 @@ $("#run").click( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_reg
 /* shuffles items in values array */
 
 $("#shuffle-items").click(function () {
-  (0, _random.shuffleArray)((0, _index.getValues)());
+  (0, _random.shuffleArray)(_index.values);
 });
 },{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","../util.js":"js/util.js","../random.js":"js/random.js","../../index.js":"index.js"}],"js/inputs/selects.js":[function(require,module,exports) {
 "use strict";
@@ -46357,11 +46357,11 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getValues = getValues;
 exports.setBarWidth = setBarWidth;
 exports.setSortingStrategy = setSortingStrategy;
 exports.sort = sort;
 exports.updateValuesAndStates = updateValuesAndStates;
+exports.values = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -46408,6 +46408,7 @@ var PIVOT_BAR_COLOR = [255, 50, 50];
 /* array to be sorted */
 
 var values = [];
+exports.values = values;
 var states = [];
 /* algorithm managment */
 
@@ -46468,12 +46469,8 @@ function updateValuesAndStates() {
 
   var _generateDefaultState2 = (0, _slicedToArray2.default)(_generateDefaultState, 2);
 
-  values = _generateDefaultState2[0];
+  exports.values = values = _generateDefaultState2[0];
   states = _generateDefaultState2[1];
-}
-
-function getValues() {
-  return values;
 }
 
 function setBarWidth() {
