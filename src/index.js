@@ -11,7 +11,7 @@ import './js/inputs/buttons.js';
 import './js/inputs/selects.js';
 
 /* style imports */
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import './styles/styles.css';
 
 /* sizing values */
