@@ -1,3 +1,3 @@
 # How to Run
  
-Currently, the only way to view this project is by downloading the files and running the `npm start` command from the terminal.  
+Click on the production link under the environments tab. Or visit https://github.com/swindesr/js_algorithm_visualizations/deployments and select the most recent option.
