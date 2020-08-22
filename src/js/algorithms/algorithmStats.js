@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { updateSliderInfoFields } from '../inputs/sliders.js';
 
 export class AlgorithmStats {

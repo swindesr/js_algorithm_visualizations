@@ -1,9 +1,7 @@
-/* define jQuery here to give all imported scripts access */
-const jquery = require("jquery");
-window.$ = window.jQuery = jquery;
+'use strict';
 
 /* script imports */
-//import P5 from 'p5';
+import $ from 'jquery';
 import { toggleInputs, generateDefaultStateArray } from './js/util.js';
 import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
@@ -11,7 +9,6 @@ import './js/inputs/buttons.js';
 import './js/inputs/selects.js';
 
 /* style imports */
-// import 'bootstrap/dist/css/bootstrap.css';
 import './styles/styles.css';
 
 /* sizing values */
@@ -34,10 +31,10 @@ let states = [];
 let sortingProgram = new SortingProgram(values, states, getDelay());
 let sortingStrategy = new QuickSort();
 
-// const p5sketch = (p) => {
+const sketch = (p) => {
   /* called once when program starts to initialize p5js environment */
-  window.setup = function () {
-    let renderer = createCanvas(width, height);
+  p.setup = () => {
+    let renderer = p.createCanvas(width, height);
     renderer.parent('p5js');
 
     updateSliderInfoFields();
@@ -47,8 +44,8 @@ let sortingStrategy = new QuickSort();
   }
 
   /* called continuously to render visuals to parent container */
-  window.draw = function () {
-    background(BG_COLOR);
+  p.draw = () => {
+    p.background(BG_COLOR);
     for (let i = 0; i < values.length; i++) {
       drawBarWithState(i);
     }
@@ -57,27 +54,27 @@ let sortingStrategy = new QuickSort();
   /* render single bar to correct screen location with correct color */
   function drawBarWithState(i) {
     if (states[i] == 'default') {
-      fill(DEFAULT_BAR_COLOR);
+      p.fill(DEFAULT_BAR_COLOR);
     } else if (states[i] == 'pivot') {
-      fill(PIVOT_BAR_COLOR);
+      p.fill(PIVOT_BAR_COLOR);
     } else if (states[i] == 'being exchanged') {
-      fill(BEING_EXCHANGED_BAR_COLOR);
+      p.fill(BEING_EXCHANGED_BAR_COLOR);
     } else if (states[i] == 'being sorted') {
-      fill(BEING_SORTED_BAR_COLOR);
+      p.fill(BEING_SORTED_BAR_COLOR);
     }
-    rect(i * barWidth, height - values[i] - 2, barWidth, values[i] + 2);
+    p.rect(i * barWidth, height - values[i] - 2, barWidth, values[i] + 2);
   }
 
-  window. windowResized = function () {
+  p.windowResized = () => {
     width = $('#p5js').width();
     height = $('#p5js').height();
-    resizeCanvas(width, height);
+    p.resizeCanvas(width, height);
     setBarWidth();
   }
-// }
+}
 
 /* instance mode for p5js */
-// new P5(p5sketch, 'p5js')
+new p5(sketch, 'p5js')
 
 function updateValuesAndStates() {
   [values, states] = generateDefaultStateArray(getItemCount());

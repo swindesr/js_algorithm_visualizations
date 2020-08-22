@@ -1,8 +1,5 @@
+import $ from 'jquery';
 import { shuffleArray } from './random.js';
-
-/* jQuery */
-const jquery = require("jquery");
-window.$ = window.jQuery = jquery;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

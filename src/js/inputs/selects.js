@@ -1,9 +1,6 @@
+import $ from 'jquery';
 import { setSortingStrategy } from '../../index.js';
 import { QuickSort, BubbleSort, SelectionSort, InsertionSort, ShellSort, MergeSort } from '../algorithms/exports.js';
-
-/* jQuery */
-const jquery = require("jquery");
-window.$ = window.jQuery = jquery;
 
 /* instantiate new sorting algorithm when chosen via dropdown */
 $('#alg-select').on('change', function() {
