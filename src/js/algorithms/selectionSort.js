@@ -19,8 +19,8 @@ export class SelectionSort extends SortingAlgorithm{
             best: '1/2 n^2',
             avg: '1/2 n^2',
             worst: '1/2 n^2',
-            inPlace: 'yes',
-            stable: 'no',
+            inPlace: true,
+            stable: false,
         }
     }
 

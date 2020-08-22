@@ -19,8 +19,8 @@ export class ShellSort extends SortingAlgorithm {
             best: 'n log3 n',
             avg: 'n/a',
             worst: 'c n^3/2',
-            inPlace: 'yes',
-            stable: 'no',
+            inPlace: true,
+            stable: false,
         }
     }
 

@@ -20,8 +20,8 @@ export class QuickSort extends SortingAlgorithm {
             best: 'n log n',
             avg:'2 n log n',
             worst: '1/2 n^2',
-            inPlace: 'yes',
-            stable: 'no',
+            inPlace: true,
+            stable: false,
         }
     }
 

@@ -19,8 +19,8 @@ export class BubbleSort extends SortingAlgorithm {
             best: 'n',
             avg: '1/2 n^2',
             worst: '1/2 n^2',
-            inPlace: 'yes',
-            stable: 'yes',
+            inPlace: true,
+            stable: true,
         }
     }
 

@@ -20,8 +20,8 @@ export class MergeSort extends SortingAlgorithm {
             best: '1/2 n log n',
             avg: 'n log n',
             worst: 'n log n',
-            inPlace: 'no',
-            stable: 'yes',
+            inPlace: false,
+            stable: true,
         }
     }
 
