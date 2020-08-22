@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { shuffleArray } from './random.js';
 
 function sleep(ms) {

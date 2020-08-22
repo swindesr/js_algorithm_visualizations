@@ -1,7 +1,6 @@
 'use strict';
 
 /* script imports */
-import $ from 'jquery';
 import { toggleInputs, generateDefaultStateArray } from './js/util.js';
 import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';

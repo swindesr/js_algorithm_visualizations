@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { toggleInputs } from '../util.js';
 import { shuffleArray } from '../random.js';
 import { sort, values } from '../../index.js';

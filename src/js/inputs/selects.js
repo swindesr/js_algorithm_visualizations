@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { setSortingStrategy } from '../../index.js';
 import { QuickSort, BubbleSort, SelectionSort, InsertionSort, ShellSort, MergeSort } from '../algorithms/exports.js';
 

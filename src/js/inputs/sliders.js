@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { updateValuesAndStates, setBarWidth } from '../../index.js';
 
 /* sliders */
