@@ -1,13 +1,9 @@
-'use strict';
-
-/* script imports */
 import { toggleInputs, generateDefaultStateArray } from './js/util.js';
 import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/sliders.js';
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
 import './js/inputs/buttons.js';
 import './js/inputs/selects.js';
 
-/* style imports */
 import './styles/styles.css';
 
 /* sizing values */

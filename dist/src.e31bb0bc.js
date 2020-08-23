@@ -997,7 +997,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.shuffleArray = shuffleArray;
 
-/* randomize elements in array using Knuth Shuffle */
+/**
+ * Shuffles an array of numbers using Knuth Shuffling method.
+ * @param {number[]} arr - Array to be shuffled
+ * @returns void
+ */
 function shuffleArray(arr) {
   if (arr == null) throw 'randomize() given null input!';
   if (!Array.isArray(arr)) throw 'randomize() given non-array input!';
@@ -1028,18 +1032,34 @@ var _random = require("./random.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Halts execution for a set duration.
+ * @param {number} ms - Number of milliseconds to sleep
+ * @returns {Promise} Promise object to be resolved after delay
+ */
 function sleep(ms) {
   return new Promise(function (resolve) {
     return setTimeout(resolve, ms);
   });
 }
-/* swap two array elements and update their states */
+/**
+ * Swaps two array elements and update their states accordingly.
+ * @param {number[]} arr - Array containing elements to be swapped
+ * @param {number} i - First element index
+ * @param {number} j - Second element index
+ * @param {SortingAlgorithm} algorithm - SortingAlgorithm object containing states and info to be updated
+ * @returns void
+ */
 
 
 function exchange(_x, _x2, _x3, _x4) {
   return _exchange.apply(this, arguments);
 }
-/* enable/disable input fields to prevent change during sorting */
+/**
+ * Enables/disables input fields
+ * @param {boolean} toggle - True to enable fields, false to disable fields
+ * @returns void
+ */
 
 
 function _exchange() {
@@ -1084,7 +1104,11 @@ function toggleInputs(toggle) {
     $('select').prop('disabled', true);
   }
 }
-/* initialize array to be sorted and shuffles values */
+/**
+ * Initializes array of values and states, and shuffles values.
+ * @param {number} size - Size of arrays to be created
+ * @return {Array<number[], string[]>} A tuple containing the value and state arrays
+ */
 
 
 function generateDefaultStateArray(size) {
@@ -1114,15 +1138,27 @@ var _index = require("../../index.js");
 /* sliders */
 var ITEM_COUNT_SLIDER = $('#itemCountSlider');
 var DELAY_SLIDER = $('#delaySlider');
+/**
+ * Reads item count slider and reports value.
+ * @returns {number} The number of items
+ */
 
 function getItemCount() {
   return parseInt(ITEM_COUNT_SLIDER.attr('value'));
 }
+/**
+ * Reads delay slider and reports value.
+ * @returns {number} The delay time in ms
+ */
+
 
 function getDelay() {
   return DELAY_SLIDER.attr('value');
 }
-/* render slider values to appropriate text fields */
+/** 
+ * Renders slider values to their appropriate text fields.
+ * @returns void
+ */
 
 
 function updateSliderInfoFields() {
@@ -1188,12 +1224,22 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Manages strategies used to sort items.
+ */
 var SortingProgram = /*#__PURE__*/function () {
+  /**
+   * Creates a new SortingProgram instance.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   */
   function SortingProgram(toSort) {
     (0, _classCallCheck2.default)(this, SortingProgram);
     this.toSort = toSort;
   }
-  /* sorts items based on given sorting instance's sort() method */
+  /** 
+   * Sorts items based on given sorting instance's sort() method 
+   * @param {SortingAlgorithm} sortingStrategy - A subclass of SortingAlgorithm that can sort arrays of numbers.
+  */
 
 
   (0, _createClass2.default)(SortingProgram, [{
@@ -1359,37 +1405,128 @@ var _sliders = require("../inputs/sliders.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * This class keeps track of statistics associated with the description 
+ * and efficiency of an algorithm being used.
+ */
 var AlgorithmStats = /*#__PURE__*/function () {
-  function AlgorithmStats(algInfo) {
+  /**
+   * Represents a set of descriptions about an algorithm and the statistics
+   * associated with its recent performance.
+   * @param {Object} algDescription - Object describing an algorithm
+   * @param {string} algDescription.name - Algorithm name
+   * @param {string} algDescription.about - Paragraph describing algorithm
+   * @param {string} algDescription.best - Asymptotic lower bound on runtime
+   * @param {string} algDescription.avg - A typical case asymptotic runtime estimate
+   * @param {string} algDescription.worst - Asymptotic upper bound on runtime
+   * @param {boolean} algDescription.inPlace - Does this sort items with constant additional memory?
+   * @param {boolean} algDescription.stable - Does this algorithm maintain relative ordering of equal keys?
+   */
+  function AlgorithmStats(algDescription) {
     (0, _classCallCheck2.default)(this, AlgorithmStats);
-    this.updateInfoFields(algInfo);
+
+    /**
+     * @property {string} name - Algorithm name
+     */
+    this.name = algDescription.name;
+    /**
+     * @property {string} about - Paragraph describing algorithm
+     */
+
+    this.about = algDescription.about;
+    /**
+     * @property {string} best - Asymptotic lower bound on runtime
+     */
+
+    this.best = algDescription.best;
+    /**
+     * @property {string} algDescription.avg - A typical case asymptotic runtime estimate
+     */
+
+    this.avg = algDescription.avg;
+    /**
+     * @property {string} algDescription.worst - Asymptotic upper bound on runtime
+     */
+
+    this.worst = algDescription.worst;
+    /**
+     * @property {boolean} inPlace - Does this sort items with constant additional memory?
+     */
+
+    this.inPlace = algDescription.inPlace;
+    /**
+     * @property {boolean} stable - Does this algorithm maintain relative ordering of equal keys?
+     */
+
+    this.stable = algDescription.stable;
+    /**
+     * @property {number} compares - Number of times the algorithm has compared array elements
+     */
+
+    this.compares = 0;
+    /**
+     * @property {number} swaps - Number of times the algorithm has swapped array elements
+     */
+
+    this.swaps = 0;
+    /**
+     * @property {double} startTime - The timestamp created when an algorithm begins running
+     */
+
+    this.startTime = 0.0;
+    /**
+     * @property {double} endTime - The timestamp created when an algorithm ends running
+     */
+
+    this.endTime = 0.0;
+    this.updateInfoFields();
   }
+  /**
+   * Populates all description fields with relevant algorithm information.
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(AlgorithmStats, [{
     key: "updateInfoFields",
-    value: function updateInfoFields(algInfo) {
-      $('#alg-name').text(algInfo.name);
-      $('#alg-about').text(algInfo.about);
-      $('#alg-best').text(algInfo.best);
-      $('#alg-avg').text(algInfo.avg);
-      $('#alg-worst').text(algInfo.worst);
-      $('#alg-place').text(algInfo.inPlace);
-      $('#alg-stable').text(algInfo.stable);
+    value: function updateInfoFields() {
+      $('#alg-name').text(this.name);
+      $('#alg-about').text(this.about);
+      $('#alg-best').text(this.best);
+      $('#alg-avg').text(this.avg);
+      $('#alg-worst').text(this.worst);
+      $('#alg-place').text(this.inPlace == true ? 'yes' : 'no');
+      $('#alg-stable').text(this.stable == true ? 'yes' : 'no');
     }
+    /**
+     * Populates compare and swap text fields.
+     * @returns void
+     */
+
   }, {
     key: "updateStats",
     value: function updateStats() {
-      (0, _sliders.updateSliderInfoFields)();
       $("#alg-compares").text(this.compares);
       $("#alg-swaps").text(this.swaps);
     }
+    /**
+     * Clears stats and populates current slider values into their respective text fields.
+     * @returns void
+     */
+
   }, {
     key: "refresh",
     value: function refresh() {
+      (0, _sliders.updateSliderInfoFields)();
       this.compares = 0;
       this.swaps = 0;
       this.startTime = performance.now();
     }
+    /**
+     * Determines time since this object was last refreshed.
+     * @returns void
+     */
+
   }, {
     key: "calculateRuntime",
     value: function calculateRuntime() {
@@ -1422,11 +1559,32 @@ var _algorithmStats = require("./algorithmStats.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * A generic sorting algorithm interface.
+ */
 var SortingAlgorithm = /*#__PURE__*/function () {
+  /**
+   * Creates a new SortingAlgorithm and updates its descriptions.
+   */
   function SortingAlgorithm() {
     (0, _classCallCheck2.default)(this, SortingAlgorithm);
     this.info = new _algorithmStats.AlgorithmStats(this.getDescriptions());
   }
+  /**
+   * Object containing array to be sorted, delay, and states
+   * @typedef {Object} toSort
+   * @property {Object} toSort - Object containing array to be sorted, and additional parameters
+   * @property {number[]} arr - Array of values to sort
+   * @property {string[]} states - State of elements in array
+   * @property {number} delay - Delay to be used during swapping (in ms)
+   */
+
+  /**
+   * Resets associated {@link AlgorithmStats} and sorts given array.
+   * @param {toSort} toSort - Object containing array to be sorted, delay, and states
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(SortingAlgorithm, [{
     key: "sort",
@@ -1454,6 +1612,11 @@ var SortingAlgorithm = /*#__PURE__*/function () {
 
       return sort;
     }()
+    /**
+     * Returns information about this algorithm. 
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -1500,15 +1663,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The quick sort algorithm.
+ */
 var QuickSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(QuickSort, _SortingAlgorithm);
 
   var _super = _createSuper(QuickSort);
 
+  /**
+   * Creates a new QuickSort instance.
+   */
   function QuickSort() {
     (0, _classCallCheck2.default)(this, QuickSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(QuickSort, [{
     key: "sort",
@@ -1539,6 +1714,11 @@ var QuickSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -1548,10 +1728,18 @@ var QuickSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: 'n log n',
         avg: '2 n log n',
         worst: '1/2 n^2',
-        inPlace: 'yes',
-        stable: 'no'
+        inPlace: true,
+        stable: false
       };
     }
+    /**
+     * Recursively sorts given arr by partitioning around a pivot.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
+
   }, {
     key: "qsort",
     value: function () {
@@ -1601,7 +1789,14 @@ var QuickSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return qsort;
     }()
-    /* find median of 3 elements in given array */
+    /**
+     * Chooses a median of 3 values in given array.
+     * @param {number[]} arr - Array of values
+     * @param {number} i - First value
+     * @param {number} j - Second value 
+     * @param {number} k - Third value 
+     * @returns {number} Median of i,j,k
+     */
 
   }, {
     key: "median3",
@@ -1639,6 +1834,15 @@ var QuickSort = /*#__PURE__*/function (_SortingAlgorithm) {
       // (arr[j] < arr[k] ? j : arr[i] < arr[k] ? k : i) :
       // (arr[k] < arr[j] ? j : arr[k] < arr[i] ? k : i));
     }
+    /**
+     * Partitions array elements in range [lo, hi] around pivot element 
+     * (located in arr[0]). Then places pivot in its correct position.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns {number} The final index of pivot in arr
+     */
+
   }, {
     key: "partition",
     value: function () {
@@ -1777,15 +1981,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The bubble sort algorithm.
+ */
 var BubbleSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(BubbleSort, _SortingAlgorithm);
 
   var _super = _createSuper(BubbleSort);
 
+  /**
+   * Creates a new BubbleSort instance.
+   */
   function BubbleSort() {
     (0, _classCallCheck2.default)(this, BubbleSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(BubbleSort, [{
     key: "sort",
@@ -1816,6 +2032,11 @@ var BubbleSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -1825,10 +2046,17 @@ var BubbleSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: 'n',
         avg: '1/2 n^2',
         worst: '1/2 n^2',
-        inPlace: 'yes',
-        stable: 'yes'
+        inPlace: true,
+        stable: true
       };
     }
+    /**
+     * Sorts the given array using the bubble sort algorithm.
+     * Also manages the state of items for display purposes.
+     * @param {number[]} arr - Array to be sorted 
+     * @returns void
+     */
+
   }, {
     key: "bsort",
     value: function () {
@@ -1932,15 +2160,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The bubble sort algorithm.
+ */
 var SelectionSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(SelectionSort, _SortingAlgorithm);
 
   var _super = _createSuper(SelectionSort);
 
+  /**
+   * Creates a new SelectionSort instance.
+   */
   function SelectionSort() {
     (0, _classCallCheck2.default)(this, SelectionSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(SelectionSort, [{
     key: "sort",
@@ -1971,6 +2211,11 @@ var SelectionSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -1980,10 +2225,16 @@ var SelectionSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: '1/2 n^2',
         avg: '1/2 n^2',
         worst: '1/2 n^2',
-        inPlace: 'yes',
-        stable: 'no'
+        inPlace: true,
+        stable: false
       };
     }
+    /**
+     * Sorts array using selection sort algorithm.
+     * @param {number[]} arr - Array to be sorted 
+     * @returns void
+     */
+
   }, {
     key: "ssort",
     value: function () {
@@ -2079,15 +2330,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The insertion sort algorithm.
+ */
 var InsertionSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(InsertionSort, _SortingAlgorithm);
 
   var _super = _createSuper(InsertionSort);
 
+  /**
+   * Creates a new InsertionSort instance.
+   */
   function InsertionSort() {
     (0, _classCallCheck2.default)(this, InsertionSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(InsertionSort, [{
     key: "sort",
@@ -2118,6 +2381,11 @@ var InsertionSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -2127,10 +2395,17 @@ var InsertionSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: 'n',
         avg: '1/4 n^2',
         worst: '1/2 n^2',
-        inPlace: 'yes',
-        stable: 'yes'
+        inPlace: true,
+        stable: true
       };
     }
+    /**
+     * Sorts the given array using the insertion sort algorithm.
+     * Also manages the state of items for display purposes.
+     * @param {number[]} arr - Array to be sorted 
+     * @returns void
+     */
+
   }, {
     key: "isort",
     value: function () {
@@ -2231,15 +2506,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The shell sort algorithm.
+ */
 var ShellSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(ShellSort, _SortingAlgorithm);
 
   var _super = _createSuper(ShellSort);
 
+  /**
+   * Creates a new ShellSort instance.
+   */
   function ShellSort() {
     (0, _classCallCheck2.default)(this, ShellSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(ShellSort, [{
     key: "sort",
@@ -2270,6 +2557,11 @@ var ShellSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -2279,10 +2571,16 @@ var ShellSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: 'n log3 n',
         avg: 'n/a',
         worst: 'c n^3/2',
-        inPlace: 'yes',
-        stable: 'no'
+        inPlace: true,
+        stable: false
       };
     }
+    /**
+     * Sorts array using shell sort algorithm.
+     * @param {number[]} arr - Array to be sorted 
+     * @returns void
+     */
+
   }, {
     key: "ssort",
     value: function () {
@@ -2399,15 +2697,27 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+/**
+ * The merge sort algorithm.
+ */
 var MergeSort = /*#__PURE__*/function (_SortingAlgorithm) {
   (0, _inherits2.default)(MergeSort, _SortingAlgorithm);
 
   var _super = _createSuper(MergeSort);
 
+  /**
+   * Creates a new MergeSort instance.
+   */
   function MergeSort() {
     (0, _classCallCheck2.default)(this, MergeSort);
     return _super.call(this);
   }
+  /**
+   * Sorts the given array and updates statistics/description fields.
+   * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+   * @returns void
+   */
+
 
   (0, _createClass2.default)(MergeSort, [{
     key: "sort",
@@ -2440,6 +2750,11 @@ var MergeSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return sort;
     }()
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
+
   }, {
     key: "getDescriptions",
     value: function getDescriptions() {
@@ -2449,10 +2764,21 @@ var MergeSort = /*#__PURE__*/function (_SortingAlgorithm) {
         best: '1/2 n log n',
         avg: 'n log n',
         worst: 'n log n',
-        inPlace: 'no',
-        stable: 'yes'
+        inPlace: false,
+        stable: true
       };
     }
+    /**
+     * Recursively sorts the given array using the merge sort algorithm.
+     * Only handles elements within [lo, hi] range in arr.
+     * Also manages the state of items for display purposes.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number[]} aux - Auxiliary array to hold items during swaps
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
+
   }, {
     key: "msort",
     value: function () {
@@ -2505,6 +2831,16 @@ var MergeSort = /*#__PURE__*/function (_SortingAlgorithm) {
 
       return msort;
     }()
+    /**
+     * Merges the two subarrays contained in range [lo, hi] in arr together
+     * in sorted order.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number[]} aux - Auxiliary array to hold items during swaps
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
+
   }, {
     key: "merge",
     value: function () {
@@ -2840,8 +3176,7 @@ var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
 },{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
-'use strict';
-/* script imports */
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2872,8 +3207,6 @@ require("./styles/styles.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* style imports */
-
 /* sizing values */
 var width = $('#p5js').width();
 var height = $('#p5js').height();
@@ -2895,9 +3228,18 @@ var states = [];
 
 var sortingProgram = new _exports.SortingProgram(values, states, (0, _sliders.getDelay)());
 var sortingStrategy = new _exports.QuickSort();
+/**
+ * Enables instance mode for p5js when passed to new p5(). Will bind all
+ * p5 library methods to parameter so as to not pollute global namespace.
+ * @param {Object} p - A p5 sketch object.
+ * @returns void
+ */
 
 var sketch = function sketch(p) {
-  /* called once when program starts to initialize p5js environment */
+  /**
+   * Called when program starts to initialize p5js environment and canvas.
+   * @returns void
+   */
   p.setup = function () {
     var renderer = p.createCanvas(width, height);
     renderer.parent('p5js');
@@ -2906,7 +3248,10 @@ var sketch = function sketch(p) {
     setBarWidth();
     (0, _util.toggleInputs)(true);
   };
-  /* called continuously to render visuals to parent container */
+  /** 
+   * Called continuously (or until noLoop() is called) to render
+   * all p5 elements to the parent container.
+   */
 
 
   p.draw = function () {
@@ -2916,7 +3261,11 @@ var sketch = function sketch(p) {
       drawBarWithState(i);
     }
   };
-  /* render single bar to correct screen location with correct color */
+  /**
+   * Renders a single bar and colors based on current state.
+   * @param {number} i - Index representing element in value array
+   * @returns void
+   */
 
 
   function drawBarWithState(i) {
@@ -2932,6 +3281,11 @@ var sketch = function sketch(p) {
 
     p.rect(i * barWidth, height - values[i] - 2, barWidth, values[i] + 2);
   }
+  /**
+   * Called when window is resized; adjusts canvas dimensions to fit new window. 
+   * @returns void
+   */
+
 
   p.windowResized = function () {
     width = $('#p5js').width();
@@ -2944,6 +3298,10 @@ var sketch = function sketch(p) {
 
 
 new p5(sketch, 'p5js');
+/**
+ * Updates value and state arrays to match current item count.
+ * @returns void
+ */
 
 function updateValuesAndStates() {
   var _generateDefaultState = (0, _util.generateDefaultStateArray)((0, _sliders.getItemCount)());
@@ -2953,15 +3311,29 @@ function updateValuesAndStates() {
   exports.values = values = _generateDefaultState2[0];
   states = _generateDefaultState2[1];
 }
+/**
+ * Sets bar width.
+ * @returns void
+ */
+
 
 function setBarWidth() {
   barWidth = width / (0, _sliders.getItemCount)();
 }
+/**
+ * Sets sorting strategy.
+ * @param {SorthingAlgorithm} strategy - Sorting algorithm to be used
+ * @returns void
+ */
+
 
 function setSortingStrategy(strategy) {
   sortingStrategy = strategy;
 }
-/* sort values based on currently selected sorting algorithm */
+/**
+ * Sorts values based on current sorting strategy.
+ * @returns void
+ */
 
 
 function sort() {
@@ -3020,7 +3392,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63594" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54801" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
