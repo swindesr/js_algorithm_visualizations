@@ -30,8 +30,17 @@ let states = [];
 let sortingProgram = new SortingProgram(values, states, getDelay());
 let sortingStrategy = new QuickSort();
 
+/**
+ * Enables instance mode for p5js when passed to new p5(). Will bind all
+ * p5 library methods to parameter so as to not pollute global namespace.
+ * @param {Object} p - A p5 sketch object.
+ * @returns void
+ */
 const sketch = (p) => {
-  /* called once when program starts to initialize p5js environment */
+  /**
+   * Called when program starts to initialize p5js environment and canvas.
+   * @returns void
+   */
   p.setup = () => {
     let renderer = p.createCanvas(width, height);
     renderer.parent('p5js');
@@ -42,7 +51,10 @@ const sketch = (p) => {
     toggleInputs(true);
   }
 
-  /* called continuously to render visuals to parent container */
+  /** 
+   * Called continuously (or until noLoop() is called) to render
+   * all p5 elements to the parent container.
+   */
   p.draw = () => {
     p.background(BG_COLOR);
     for (let i = 0; i < values.length; i++) {
@@ -50,7 +62,11 @@ const sketch = (p) => {
     }
   }
 
-  /* render single bar to correct screen location with correct color */
+  /**
+   * Renders a single bar and colors based on current state.
+   * @param {number} i - Index representing element in value array
+   * @returns void
+   */
   function drawBarWithState(i) {
     if (states[i] == 'default') {
       p.fill(DEFAULT_BAR_COLOR);
@@ -64,6 +80,10 @@ const sketch = (p) => {
     p.rect(i * barWidth, height - values[i] - 2, barWidth, values[i] + 2);
   }
 
+  /**
+   * Called when window is resized; adjusts canvas dimensions to fit new window. 
+   * @returns void
+   */
   p.windowResized = () => {
     width = $('#p5js').width();
     height = $('#p5js').height();
@@ -75,19 +95,35 @@ const sketch = (p) => {
 /* instance mode for p5js */
 new p5(sketch, 'p5js')
 
+/**
+ * Updates value and state arrays to match current item count.
+ * @returns void
+ */
 function updateValuesAndStates() {
   [values, states] = generateDefaultStateArray(getItemCount());
 }
 
+/**
+ * Sets bar width.
+ * @returns void
+ */
 function setBarWidth() {
   barWidth = width / getItemCount();
 }
 
+/**
+ * Sets sorting strategy.
+ * @param {SorthingAlgorithm} strategy - Sorting algorithm to be used
+ * @returns void
+ */
 function setSortingStrategy(strategy) {
   sortingStrategy = strategy;
 }
 
-/* sort values based on currently selected sorting algorithm */
+/**
+ * Sorts values based on current sorting strategy.
+ * @returns void
+ */
 async function sort() {
   sortingProgram = new SortingProgram({
       arr: values,

@@ -1,4 +1,8 @@
-/* randomize elements in array using Knuth Shuffle */
+/**
+ * Shuffles an array of numbers using Knuth Shuffling method.
+ * @param {number[]} arr - Array to be shuffled
+ * @returns void
+ */
 export function shuffleArray(arr) {
     if (arr == null) throw 'randomize() given null input!';
     if (!Array.isArray(arr)) throw 'randomize() given non-array input!';

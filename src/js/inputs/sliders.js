@@ -4,15 +4,26 @@ import { updateValuesAndStates, setBarWidth } from '../../index.js';
 const ITEM_COUNT_SLIDER = $('#itemCountSlider');
 const DELAY_SLIDER = $('#delaySlider');
 
+/**
+ * Reads item count slider and reports value.
+ * @returns {number} The number of items
+ */
 function getItemCount() {
     return parseInt(ITEM_COUNT_SLIDER.attr('value'));
 }
 
+/**
+ * Reads delay slider and reports value.
+ * @returns {number} The delay time in ms
+ */
 function getDelay() {
     return DELAY_SLIDER.attr('value');
 }
 
-/* render slider values to appropriate text fields */
+/** 
+ * Renders slider values to their appropriate text fields.
+ * @returns void
+ */
 function updateSliderInfoFields() {
     $('#alg-items').text(ITEM_COUNT_SLIDER.attr('value'));
     $('#alg-delay').text(DELAY_SLIDER.attr('value'));
