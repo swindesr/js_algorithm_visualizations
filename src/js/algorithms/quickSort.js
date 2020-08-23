@@ -2,17 +2,32 @@ import { exchange } from '../util.js';
 import { AlgorithmStats } from './algorithmStats.js';
 import { SortingAlgorithm } from './sortingAlgorithm.js';
 
+/**
+ * The quick sort algorithm.
+ */
 export class QuickSort extends SortingAlgorithm {
+    /**
+     * Creates a new QuickSort instance.
+     */
     constructor() {
         super();
     }
 
+    /**
+     * Sorts the given array and updates statistics/description fields.
+     * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+     * @returns void
+     */
     async sort(toSort) {
         super.sort(toSort);
         await this.qsort(toSort.arr, 0, toSort.arr.length - 1);
         this.info.calculateRuntime();
     }
 
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
     getDescriptions() {
         return {
             name: 'Quick Sort',
@@ -25,6 +40,13 @@ export class QuickSort extends SortingAlgorithm {
         }
     }
 
+    /**
+     * Recursively sorts given arr by partitioning around a pivot.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
     async qsort(arr, lo, hi) {
         if (hi <= lo) return;
 
@@ -38,7 +60,14 @@ export class QuickSort extends SortingAlgorithm {
         await this.qsort(arr, j+1, hi)   // sort right of partition
     }
 
-    /* find median of 3 elements in given array */
+    /**
+     * Chooses a median of 3 values in given array.
+     * @param {number[]} arr - Array of values
+     * @param {number} i - First value
+     * @param {number} j - Second value 
+     * @param {number} k - Third value 
+     * @returns {number} Median of i,j,k
+     */
     median3(arr, i, j, k) {
         let res;
         if (arr[i] < arr[j]) {
@@ -72,6 +101,14 @@ export class QuickSort extends SortingAlgorithm {
         // (arr[k] < arr[j] ? j : arr[k] < arr[i] ? k : i));
     }
 
+    /**
+     * Partitions array elements in range [lo, hi] around pivot element 
+     * (located in arr[0]). Then places pivot in its correct position.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns {number} The final index of pivot in arr
+     */
     async partition(arr, lo, hi) {
         let i = lo;
         let j = hi + 1;

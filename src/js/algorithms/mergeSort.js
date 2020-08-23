@@ -1,11 +1,22 @@
 import { sleep } from '../util.js';
 import { SortingAlgorithm } from './sortingAlgorithm.js';
 
+/**
+ * The merge sort algorithm.
+ */
 export class MergeSort extends SortingAlgorithm {
+    /**
+     * Creates a new MergeSort instance.
+     */
     constructor() {
         super();
     }
 
+    /**
+     * Sorts the given array and updates statistics/description fields.
+     * @param {toSort} toSort - Object containing array to be sorted, and additional parameters
+     * @returns void
+     */
     async sort(toSort) {
         super.sort(toSort);
         let aux = new Array(toSort.arr.length);
@@ -13,6 +24,10 @@ export class MergeSort extends SortingAlgorithm {
         this.info.calculateRuntime();
     }
 
+    /**
+     * Returns a description of the bubble sort algorithm.
+     * @returns {Object} - See {@link AlgorithmStats}
+     */
     getDescriptions() {
         return {
             name: 'Merge Sort',
@@ -25,6 +40,16 @@ export class MergeSort extends SortingAlgorithm {
         }
     }
 
+    /**
+     * Recursively sorts the given array using the merge sort algorithm.
+     * Only handles elements within [lo, hi] range in arr.
+     * Also manages the state of items for display purposes.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number[]} aux - Auxiliary array to hold items during swaps
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
     async msort(arr, aux, lo, hi) {
         if (hi <= lo) return;
         let mid = Math.floor(lo + (hi - lo) / 2);
@@ -34,6 +59,15 @@ export class MergeSort extends SortingAlgorithm {
         this.info.compares++;
     }
 
+    /**
+     * Merges the two subarrays contained in range [lo, hi] in arr together
+     * in sorted order.
+     * @param {number[]} arr - Array to be sorted 
+     * @param {number[]} aux - Auxiliary array to hold items during swaps
+     * @param {number} lo - Left index 
+     * @param {number} hi - Right index 
+     * @returns void
+     */
     async merge(arr, aux, lo, mid, hi) {
         for (let k = lo; k <= hi; k++) {
             this.states[k] = 'being sorted';
