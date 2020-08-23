@@ -3,7 +3,6 @@ import { updateSliderInfoFields, getDelay, getItemCount } from './js/inputs/slid
 import { SortingProgram, QuickSort } from './js/algorithms/exports.js';
 import './js/inputs/buttons.js';
 import './js/inputs/selects.js';
-
 import './styles/styles.css';
 
 /* sizing values */
